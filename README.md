@@ -11,7 +11,7 @@ Picker allows user to select the location directly on the map or use search with
 ![](https://img.shields.io/badge/Carthage-✔-f2a77e.svg?style=flat)
 
 Add following line to your Cartfile:
-```github "piotrbernad/GooglePlacesPicker"```
+```github "konalexiou/GooglePlacesPicker"```
 
 Import module using:
 ```import PlacePicker```
@@ -21,7 +21,7 @@ Import module using:
 ![](https://cocoapod-badges.herokuapp.com/v/PlacesPicker/badge.png)
 
 Add following line to your Cartfile:
-```pod 'PlacesPicker'```
+```pod 'PlacesPicker', :git => 'https://github.com/konalexiou/GooglePlacesPicker.git'```
 
 Import module using:
 ```import PlacesPicker```
@@ -31,7 +31,7 @@ Import module using:
 To use Picker you need to provide Google Places API Key and Google Maps key to do so, you should call:
 
 ```
-PlacePicker.configure(googleMapsAPIKey: "YOUR_KEY", placesAPIKey: "YOUR_PLACES_KEY")
+PlacePicker.configure(googleMapsAPIKey: "YOUR_KEY", placesAPIKey: "YOUR_PLACES_KEY", googleGeocodeAPIKey: "YOUR_GEOCODE_KEY")
 ```
 
 Whenever you want to show controller call:
