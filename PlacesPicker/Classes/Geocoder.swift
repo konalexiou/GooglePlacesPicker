@@ -16,29 +16,29 @@ public enum GeocoderError: Error {
 public class Geocoder {
     private let baseUrl: URL = URL(string: "https://maps.googleapis.com/maps/api/geocode/json")!
     private let apiKey: String
-    
+
     public init() {
-        guard let googleMapsKey = PlacePicker.googleMapsKey else {
-            fatalError("Missing Google Maps Key. Please call PlacePicker.configure() before using Picker.")
+        guard let googleMapsKey = PlacePicker.googleGeocodeKey else {
+            fatalError("Missing Google Maps Geocode Key. Please call PlacePicker.configure() before using Picker.")
         }
         self.apiKey = googleMapsKey
     }
-    
+
     public func reverseGeocode(coordinate: CLLocationCoordinate2D, completion: @escaping (ReverseGeocodeResponse?, Error?) -> ()) {
-        
+
         var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: true)
         components?.queryItems = [URLQueryItem(name: "latlng", value: "\(coordinate.latitude),\(coordinate.longitude)"),
                                   URLQueryItem(name: "key", value: apiKey)]
-        
+
         guard let url = components?.url else {
             completion(nil, GeocoderError.couldNotBuildRequest)
             return
         }
-        
+
         perfromGeocodeRequest(url: url, completion: completion)
-        
+
     }
-    
+
     private func perfromGeocodeRequest(url: URL, completion: @escaping (ReverseGeocodeResponse?, Error?) -> ()) {
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data, error == nil else {
@@ -47,7 +47,7 @@ public class Geocoder {
                 }
                 return
             }
-            
+
             do {
                 let jsonDecoder = JSONDecoder()
                 let decodedResponse = try jsonDecoder.decode(ReverseGeocodeResponse.self, from: data)
@@ -59,9 +59,9 @@ public class Geocoder {
                     completion(nil, error)
                 }
             }
-            
+
         }
-        
+
         task.resume()
     }
 }
